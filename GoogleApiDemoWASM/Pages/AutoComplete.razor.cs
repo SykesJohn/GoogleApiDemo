@@ -1,15 +1,23 @@
-﻿using GoogleApi.Entities.Common;
-using GoogleApi.Entities.Maps.Geocoding;
-using GoogleApi.Entities.Places.AutoComplete.Request;
-using GoogleApi.Entities.Places.AutoComplete.Response;
+﻿using GoogleApi.Entities.Places.AutoComplete.Request;
 using GoogleApi.Entities.Places.Common;
-using Org.BouncyCastle.Asn1.X509;
-using System.Globalization;
 
 namespace GoogleApiDemoWASM.Pages;
 
+
 public partial class AutoComplete
 	{
+	public AutoComplete()
+		{
+		}
+
+	//[Inject]
+	//private GoogleApi.GooglePlaces.AutoCompleteApi autoComplete { get; set; } = default!;
+
+	protected override void OnParametersSet()
+		{
+		base.OnParametersSet();
+		}
+
 	public static string GoogleApiKey;
 	public List<Prediction> AddressOptions { get; protected set; } = new();
 	public string SelectedOptionId { get; set; } = "";
@@ -30,7 +38,8 @@ public partial class AutoComplete
 				new KeyValuePair<GoogleApi.Entities.Common.Enums.Component, string>(GoogleApi.Entities.Common.Enums.Component.Country, "us")
 				}
 			};
-		var list = await GoogleApi.GooglePlaces.AutoComplete.QueryAsync(req);
+		//var list = await autoComplete.QueryAsync(req);
+		var list = await autoComplete.QueryAsync(req).ConfigureAwait(false);
 		if(list == null || list.Predictions == null)
 			return AddressOptions;
 		if(list.Status != GoogleApi.Entities.Common.Enums.Status.Ok)

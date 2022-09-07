@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Components.Web;
 using static Org.BouncyCastle.Math.EC.ECCurve;
 
 var config = new ConfigurationBuilder()
-								 .SetBasePath(Directory.GetCurrentDirectory())
-								 .AddJsonFile("appsettings.json")
-								 .Build();
+	.SetBasePath(Directory.GetCurrentDirectory())
+	.AddJsonFile("appsettings.json")
+	.Build();
 
 var builder = WebApplication.CreateBuilder(args);
 
